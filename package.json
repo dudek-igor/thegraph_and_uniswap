@@ -2,6 +2,7 @@
   "name": "thegraph_and_uniswap",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,7 @@
   "homepage": "https://github.com/dudek-igor/thegraph_and_uniswap#readme",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "graphql-request": "^7.1.2"
   }
 }
