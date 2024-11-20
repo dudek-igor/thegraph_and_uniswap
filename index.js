@@ -10,23 +10,50 @@ const graphQLClient = new GraphQLClient(UNISWAP_SUBGRAPH_ENDPOINT);
 
 const query = gql`
   {
-    factories(id: $factoryId) {
-      poolCount
-      txCount
-      totalVolumeUSD
-      totalVolumeETH
-      totalFeesUSD
-      totalFeesETH
-      untrackedVolumeUSD
-      totalValueLockedUSD
-      totalValueLockedETH
-      totalValueLockedUSDUntracked
-      totalValueLockedETHUntracked
-      owner
-    }
-    bundles {
+    # factories(id: $factoryId) {
+    #   poolCount
+    #   txCount
+    #   totalVolumeUSD
+    #   totalVolumeETH
+    #   totalFeesUSD
+    #   totalFeesETH
+    #   untrackedVolumeUSD
+    #   totalValueLockedUSD
+    #   totalValueLockedETH
+    #   totalValueLockedUSDUntracked
+    #   totalValueLockedETHUntracked
+    #   owner
+    # }
+    # bundles {
+    #   id
+    #   ethPriceUSD
+    # }
+    # pool(id: "0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8") {
+    #   tick
+    #   token0 {
+    #     symbol
+    #     id
+    #     decimals
+    #   }
+    #   token1 {
+    #     symbol
+    #     id
+    #     decimals
+    #   }
+    #   feeTier
+    #   sqrtPrice
+    #   liquidity
+    # }
+    pools(first: 10, skip: 1000) {
       id
-      ethPriceUSD
+      token0 {
+        id
+        symbol
+      }
+      token1 {
+        id
+        symbol
+      }
     }
   }
 `;
@@ -36,6 +63,7 @@ async function fetchData() {
     const data = await graphQLClient.request(query, {
       factoryId: UNISWAP_V3_FACTORY_ADDRES,
     });
+    // data.pools.forEach(console.log);
     console.log(data);
   } catch (error) {
     console.error("Error fetching data:", error);
